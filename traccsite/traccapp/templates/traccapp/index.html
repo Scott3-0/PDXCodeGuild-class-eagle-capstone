@@ -4,9 +4,66 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TRACC</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <p>{{ text }}</p>
+    <!-- Code for page -->
+    <div id="app">
+        <div>
+            <div>
+                <label for="lat">Latitude</label>
+                <input type="float" name="lat" id="lat" v-model="lat">
+            </div>
+            <div>
+                <label for="lon">Longitude</label>
+                <input type="float" name="lon" id="lon" v-model="lon">
+            </div>
+            <div>
+                <button v-on:click="getLocWeather">Get Weather</button>
+            </div>
+        </div>
+        <div v-if="lat != null">
+            <span>{{ lat }}</span>
+        </div>
+    </div>
+    <!-- Bootstrap CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- VueJS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                lat: 0,
+                lon: 0,
+                apiUrl: 'http://api.weatherapi.com/v1/current.json',
+                apiKey: '2a79336780e84586abc230602213006',
+                aqiParam: 'yes',
+                apiResults: null
+            },
+            methods: {
+                getLocWeather: function(){
+                    loc = this.lat + ',' + this.lon
+                    axios({
+                        method: 'get',
+                        url: this.apiUrl,
+                        params: {
+                            key: this.apiKey,
+                            q: loc,
+                            aqi: this.aqiParam
+                        }
+                    }).then(response => {
+                        console.log(response.data)
+                        this.apiResults = response.data
+                        return response.data
+                    })
+                },
+            }
+        })
+    </script>
 </body>
-</html>
+    </html>
