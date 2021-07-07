@@ -9,7 +9,7 @@
 	- While the end goal is to do what I stated in the end goal, I will none the less, have not enough  time to do it. The minimum goal will be to save locations based on very basic user information. In addition, to just display current conditions at the given location.
 
  - ### Frameworks, Libraries, and APIs
-	- I use **Free Weather API** [Link](https://www.weatherapi.com/) to access weather data, as it is freely offered from the government, and is often time, the main source of weather data for other APIs, so it is easiest just to stick to the source. This gives the added benefit of allowing me to access government-issued weather-related warnings (i.e. tornados, flooding, heatwaves, etc...)
+	- I use **Free Weather API** ([Link](https://www.weatherapi.com/)) to access weather data, since it is free to use, returns simply formatted json objects, and when making requests, is very flexible with text fields
 
 	 - For CSS, I plan on using the **Bootstrap framework**, as I prefer it over Materialize and would like to get more comfortable with it. It goes without saying that I will also be using the **Django** and **VueJS** libraries, required via class curriculum.
 
