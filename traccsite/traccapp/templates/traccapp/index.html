@@ -9,6 +9,16 @@
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+<style>
+    #field{
+        margin: 10px;
+    }
+    #inputs{
+        border: 2px solid black;
+        margin: 5px;
+        margin-bottom: 10px;
+    }
+</style>
 <body>
     <!-- Code for page -->
     <div id="app">
@@ -120,6 +130,7 @@
                 </div>
             </div>
         </div> <!-- end location accordian -->
+        <!-- This block displays the conditions at given location -->
         <div class="container" v-if="apiResults != null">
             <div class="container" id="locationTimeInfo">
                 <span>At the coordinates <b>{{ apiResults.location.lat }}, {{ apiResults.location.lon }}</b></span><br>
@@ -129,6 +140,69 @@
                 <span>The skies are currently <b>{{ apiResults.current.condition.text}}</b></span><br>
                 <span>It feels like <b>{{ apiResults.current.feelslike_f }}°F</b>  or <b>{{ apiResults.current.feelslike_c }}°C</b></span><br>
                 
+            </div>
+        </div>
+        <span>{{ formWindDir }}</span>
+        <!-- Submit weather data form -->
+        <div class="container">
+            <div id="inputs" class="container">
+                <div id="field">
+                    <h5>Location</h5>
+                    <input type="text" v-model="formLoc">
+                </div>
+                <div id="field">
+                    <h5>Date</h5>
+                    <input type="date" v-model="formDate">
+                </div>
+                <div id="field">
+                    <h5>Time</h5>
+                    <input type="time" v-model="formTime">
+                </div>
+                <div id="field">
+                    <h5>Sky condition</h5>
+                    <input type="radio" name="sky_cond" value="SKC" id="SKC"  v-model="formSky">
+                        <label for="SKC">Clear skies</label><br>
+                    <input type="radio" name="sky_cond" value="FEW" id="FEW"  v-model="formSky">
+                        <label for="FEW">Few clouds</label><br>
+                    <input type="radio" name="sky_cond" value="SCT" id="SCT"  v-model="formSky">
+                        <label for="SCT">Scattered clouds</label><br>
+                    <input type="radio" name="sky_cond" value="BKN" id="BKN"  v-model="formSky">
+                        <label for="BKN">Broken skies</label><br>
+                    <input type="radio" name="sky_cond" value="OVC" id="OVC"  v-model="formSky">
+                        <label for="OVC">Overcast</label><br>
+                </div>
+                <div id="field">
+                    <h5>Wind Direction</h5>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="NAN" id="NAN">
+                        <label for="NAN">No wind</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="000" id="000">
+                        <label for="000">North</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="045" id="045">
+                        <label for="045">Northeast</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="090" id="090">
+                        <label for="090">East</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="135" id="135">
+                        <label for="135">Southeast</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="180" id="180">
+                        <label for="180">South</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="225" id="225">
+                        <label for="225">Southwest</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="270" id="270">
+                        <label for="270">West</label><br>
+                    <input type="radio" name="wind_dir" v-model="formWindDir" value="315" id="315">
+                        <label for="315">Northwest</label><br>
+                </div>
+                <div id="field" v-if="formWindDir != 'NAN'">
+                    <h5>Wind Speed</h5>
+                    <input type="text" v-model="formWindVel">
+                </div>
+                <div id="field">
+                    <h5>Temperature</h5>
+                    <input type="text" v-model="formTemp">
+                </div>
+                <div id="submit">
+                    <button v-on:click="submitWeatherReport">Submit Weather Report</button>
+                </div>
             </div>
         </div>
     </div>
@@ -152,9 +226,19 @@
                 apiUrl: 'http://api.weatherapi.com/v1/current.json',
                 apiKey: '2a79336780e84586abc230602213006',
                 aqiParam: 'yes',
-                apiResults: null
+                apiResults: null,
+                formLoc: '',
+                formDate: null,
+                formTime: null,
+                formSky: null,
+                formWindDir: null,
+                formWindVel: null,
+                formTemp: null
             },
             methods: {
+                submitWeatherReport: function(){
+
+                },
                 getLocWeather: function(query){
         /* locType == x  |  menu option
          * --------------+-----------------------------
@@ -215,6 +299,8 @@
                     this.locMin = locDateTime.getMinutes()
                     if(this.locHour - 12 > 0){
                         this.locHour -= 12
+                    }
+                    if(this.locHour - 12 >= 0){
                         this.locAMPM = 'PM'
                     }
                     else{
