@@ -274,16 +274,18 @@
                     let locDateTime = new Date(this.apiResults.location.localtime)
                     this.locHour = locDateTime.getHours()
                     this.locMin = locDateTime.getMinutes()
-                    if(this.locHour - 12 > 0){
-                        this.locHour -= 12
-                    }
-                    if(this.locHour - 12 >= 0){
-                        this.locAMPM = 'PM'
-                    }
-                    else{
+                    if(this.locHour - 12 < 0){
                         this.locAMPM = 'AM'
                     }
+                    else{
+                        this.locAMPM = 'PM'
+                    }
 
+                    this.locHour =  (this.locHour % 12)
+                    if(this.locHour == 0){
+                        this.locHour += 12
+                    }
+                    
                     if(this.locMin < 10){
                         this.locMin = '0' + this.locMin
                     }
