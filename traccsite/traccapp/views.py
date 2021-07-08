@@ -9,7 +9,7 @@ def index(request):
     text = 'Hola World!'
     context = {'text': text}
     return render(request, 'traccapp/index.html', context)
-#  {'csrfmiddlewaretoken': ['q0cdJW0NPjBPqONvvk0hNjsblpAAtEI1MqfyfyAOHWZFm2KY96erGmCgse4bfFIV'], 'formLoc': ['3'], 'formDate': ['2021-07-10'], 'formTime': ['13:18'], 'sky_cond': ['BKN'], 'wind_dir': ['270'], 'formWindVel': ['22'], 'formTemp': ['2']}
+
 def submit(request):
     weatherReport = WeatherReport()
     weatherReport.location = request.POST['formLoc']

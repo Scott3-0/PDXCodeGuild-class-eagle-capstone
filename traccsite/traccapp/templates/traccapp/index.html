@@ -13,202 +13,170 @@
         margin: 10px;
     }
     #inputs{
-        border: 2px solid black;
         margin: 5px;
         margin-bottom: 10px;
+    }
+    #locCondContainer{
+        margin: 10px;
+    }
+    #weatherAccordian{
+        border-top: 3px solid gray;
+    }
+    .genSpace{
+        margin: 5px
     }
 </style>
 <body>
     <!-- Code for page -->
     <div id="app">
-        <div class="accordion accordion-flush" id="locInputAccordian">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                  Automatic IP Lookup
-                </button>
-              </h2>
-              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#locInputAccordian">
-                <div class="accordion-body">
-                    <button v-on:click="getLocWeather('auto:ip')" type="button" class="btn btn-secondary">Get Weather</button>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                  Location Name
-                </button>
-              </h2>
-              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#locInputAccordian">
-                <div class="accordion-body">
-                    <div>
-                        <label for="stringParam"></label>
-                        <input type="text" v-model="stringParam">
-                    </div>
-                    <div>
-                        <button v-on:click="getLocWeather(stringParam)" type="button" class="btn btn-secondary">Get Weather</button>
+        <div class="container" id="locCondContainer">
+            <div class="row">
+                <div class="col">
+                    <!-- Location Input Accordian -->
+                    <h4>Select Location</h4>
+                    <div class="accordion accordion-flush" id="locInputAccordian">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                              Automatic Lookup
+                            </button>
+                          </h2>
+                          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#locInputAccordian">
+                            <div class="accordion-body">
+                                <button v-on:click="getLocWeather('auto:ip')" type="button" class="btn btn-secondary">Get Weather</button>
+                            </div>
+                          </div>
                         </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                  Coordinates
-                </button>
-              </h2>
-              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#locInputAccordian">
-                <div class="accordion-body">
-                    <div>
-                        <label for="lat">Latitude (in decimal form)</label>
-                        <input type="float" name="lat" id="lat" v-model="lat">
-                    </div>
-                    <div>
-                        <label for="lon">Longitude (in decimal form)</label>
-                        <input type="float" name="lon" id="lon" v-model="lon">
-                    </div>
-                    <div>
-                        <button v-on:click="getLocWeather(lat + ',' + lon)" type="button" class="btn btn-secondary">Get Weather</button>
-                    </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingFour">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                    US Zipcode / UK Postcode / Canada Postal Code
-                  </button>
-                </h2>
-                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#locInputAccordian">
-                  <div class="accordion-body">
-                      <div>
-                          <label for="stringParam"></label>
-                          <input type="text" v-model="stringParam">
-                      </div>
-                      <div>
-                          <button v-on:click="getLocWeather(stringParam)" type="button" class="btn btn-secondary">Get Weather</button>
-                      </div>
-                  </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingFive">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                    3-Digit Airport Code (IATA)
-                    </button>
-                </h2>
-                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#locInputAccordian">
-                    <div class="accordion-body">
-                        <div>
-                            <label for="stringParam"></label>
-                            <input type="text" v-model="stringParam">
-                        </div>
-                        <div>
-                            <button v-on:click="getLocWeather('iata:' + stringParam)" type="button" class="btn btn-secondary">Get Weather</button>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                              Search
+                            </button>
+                          </h2>
+                          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#locInputAccordian">
+                            <div class="accordion-body">
+                                <div class="genSpace">
+                                    <label for="stringParam"></label>
+                                    <input type="text" v-model="stringParam">
+                                </div>
+                                <div>
+                                    <button v-on:click="getLocWeather(stringParam)" type="button" class="genSpace btn btn-secondary">Get Weather</button>
+                                    </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingSix">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                    IP Address (IPv4/IPv6)
-                  </button>
-                </h2>
-                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#locInputAccordian">
-                  <div class="accordion-body">
-                      <div>
-                          <label for="stringParam"></label>
-                          <input type="text" v-model="stringParam">
-                      </div>
-                      <div>
-                          <button v-on:click="getLocWeather(stringParam)" type="button" class="btn btn-secondary">Get Weather</button>
-                      </div>
-                  </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col">
+                            <!-- This block displays the conditions at given location -->
+                            <div class="container" v-if="apiResults != null">
+                                <div class="container" id="locationTimeInfo">
+                                    <span>At the coordinates <b><% apiResults.location.lat %>, <% apiResults.location.lon %></b></span><br>
+                                    <span>Local time is <b><% locHour %>:<% locMin %> <% locAMPM %></b></span>
+                                </div>
+                                <div class="container" id="locationCurrentCondition">
+                                    <span>The skies are currently <b><% apiResults.current.condition.text%></b></span><br>
+                                    <span>It feels like <b><% apiResults.current.feelslike_f %>°F</b>  or <b><% apiResults.current.feelslike_c %>°C</b></span><br>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <!-- This block displays a map -->
+                            <span v-html="mapHTML"></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div> <!-- end location accordian -->
-        <!-- This block displays the conditions at given location -->
-        <div class="container" v-if="apiResults != null">
-            <div class="container" id="locationTimeInfo">
-                <span>At the coordinates <b><% apiResults.location.lat %>, <% apiResults.location.lon %></b></span><br>
-                <span>Local time is <b><% locHour %>:<% locMin %> <% locAMPM %></b></span>
-            </div>
-            <div class="container" id="locationCurrentCondition">
-                <span>The skies are currently <b><% apiResults.current.condition.text%></b></span><br>
-                <span>It feels like <b><% apiResults.current.feelslike_f %>°F</b>  or <b><% apiResults.current.feelslike_c %>°C</b></span><br>
-                
             </div>
         </div>
-        <!-- Weather data form -->
-        <!-- Returns: name=value as param in url -->
-        <form action="{% url 'submit' %}" method="post">
-            {% csrf_token %}
-            <div id="inputs" class="container">
-                <div id="field">
-                    <h5>Location</h5>
-                    <input required="true" type="text" name="formLoc">
+        <!-- Weather Report Form Accordian -->
+        <div class="accordion accordion-flush gx-35" id="weatherAccordian">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingReport">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseReport" aria-expanded="false" aria-controls="flush-collapseReport">
+                  Report the weather
+                </button>
+              </h2>
+              <div id="flush-collapseReport" class="accordion-collapse collapse" aria-labelledby="flush-headingReport" data-bs-parent="#weatherAccordian">
+                  <div class="accordion-body">
+                    <!-- Weather data form -->
+                    <!-- Returns: name=value as param in url -->
+                    <form action="{% url 'submit' %}" method="post">
+                        {% csrf_token %}
+                        <div id="inputs" class="container">
+                            <div id="field">
+                                <h5>Location</h5>
+                                <input required="true" type="text" name="formLoc">
+                            </div>
+                            <div id="field">
+                                <h5>Date</h5>
+                                <input required="true" type="date" name="formDate">
+                            </div>
+                            <div id="field">
+                                <h5>Time</h5>
+                                <input required="true" type="time" name="formTime">
+                            </div>
+                            <div id="field">
+                                <h5>Sky condition</h5>
+                                <input required="true" type="radio" name="sky_cond" value="SKC" id="SKC">
+                                    <label for="SKC">Clear skies</label><br>
+                                <input required="true" type="radio" name="sky_cond" value="FEW" id="FEW">
+                                    <label for="FEW">Few clouds</label><br>
+                                <input required="true" type="radio" name="sky_cond" value="SCT" id="SCT">
+                                    <label for="SCT">Scattered clouds</label><br>
+                                <input required="true" type="radio" name="sky_cond" value="BKN" id="BKN">
+                                    <label for="BKN">Broken skies</label><br>
+                                <input required="true" type="radio" name="sky_cond" value="OVC" id="OVC">
+                                    <label for="OVC">Overcast</label><br>
+                            </div>
+                            <div id="field">
+                                <h5>Wind Direction</h5>
+                                <input required="true" type="radio" name="wind_dir" value="NAN" id="NAN" v-model="formWindDir">
+                                    <label for="NAN">No wind</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="000" id="000" v-model="formWindDir">
+                                    <label for="000">North</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="045" id="045" v-model="formWindDir">
+                                    <label for="045">Northeast</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="090" id="090" v-model="formWindDir">
+                                    <label for="090">East</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="135" id="135" v-model="formWindDir">
+                                    <label for="135">Southeast</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="180" id="180" v-model="formWindDir">
+                                    <label for="180">South</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="225" id="225" v-model="formWindDir">
+                                    <label for="225">Southwest</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="270" id="270" v-model="formWindDir">
+                                    <label for="270">West</label><br>
+                                <input required="true" type="radio" name="wind_dir" value="315" id="315" v-model="formWindDir">
+                                    <label for="315">Northwest</label><br>
+                            </div>
+                            <div id="field">
+                                <h5>Wind Speed (Enter a "0" for no wind)</h5>
+                                <input type="text" name="formWindVel" default="0">
+                            </div>
+                            <div id="field">
+                                <h5>Temperature</h5>
+                                <input required="true" type="text" name="formTemp">
+                            </div>
+                            <div id="submit">
+                                <input type="Submit" value="Submit Weather Report"/>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div id="field">
-                    <h5>Date</h5>
-                    <input required="true" type="date" name="formDate">
-                </div>
-                <div id="field">
-                    <h5>Time</h5>
-                    <input required="true" type="time" name="formTime">
-                </div>
-                <div id="field">
-                    <h5>Sky condition</h5>
-                    <input required="true" type="radio" name="sky_cond" value="SKC" id="SKC">
-                        <label for="SKC">Clear skies</label><br>
-                    <input required="true" type="radio" name="sky_cond" value="FEW" id="FEW">
-                        <label for="FEW">Few clouds</label><br>
-                    <input required="true" type="radio" name="sky_cond" value="SCT" id="SCT">
-                        <label for="SCT">Scattered clouds</label><br>
-                    <input required="true" type="radio" name="sky_cond" value="BKN" id="BKN">
-                        <label for="BKN">Broken skies</label><br>
-                    <input required="true" type="radio" name="sky_cond" value="OVC" id="OVC">
-                        <label for="OVC">Overcast</label><br>
-                </div>
-                <div id="field">
-                    <h5>Wind Direction</h5>
-                    <input required="true" type="radio" name="wind_dir" value="NAN" id="NAN" v-model="formWindDir">
-                        <label for="NAN">No wind</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="000" id="000" v-model="formWindDir">
-                        <label for="000">North</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="045" id="045" v-model="formWindDir">
-                        <label for="045">Northeast</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="090" id="090" v-model="formWindDir">
-                        <label for="090">East</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="135" id="135" v-model="formWindDir">
-                        <label for="135">Southeast</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="180" id="180" v-model="formWindDir">
-                        <label for="180">South</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="225" id="225" v-model="formWindDir">
-                        <label for="225">Southwest</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="270" id="270" v-model="formWindDir">
-                        <label for="270">West</label><br>
-                    <input required="true" type="radio" name="wind_dir" value="315" id="315" v-model="formWindDir">
-                        <label for="315">Northwest</label><br>
-                </div>
-                <div id="field">
-                    <h5>Wind Speed (Enter a "0" for no wind)</h5>
-                    <input type="text" name="formWindVel" default="0">
-                </div>
-                <div id="field">
-                    <h5>Temperature</h5>
-                    <input required="true" type="text" name="formTemp">
-                </div>
-                <div id="submit">
-                    <input type="Submit" value="Submit Weather Report"/>
-                </div>
+              </div>
             </div>
-        </form>
+        </div>
     </div>
     <!-- Bootstrap CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <!-- Google Maps JS API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiir3kMQIh4wLYVH57OE62wVzyrG1OKKw"></script>
     <!-- VueJS -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Axios -->
@@ -218,14 +186,15 @@
             el: '#app',
             delimiters: ['<%', '%>'],
             data: {
-                lat: 0,
-                lon: 0,
+                lat: null,
+                lon: null,
                 locHour: '',
                 locMin: '',
                 locAMPM: '',
                 stringParam: '',
                 apiUrl: 'http://api.weatherapi.com/v1/current.json',
                 apiKey: '2a79336780e84586abc230602213006',
+                googleAPIKey: 'AIzaSyBiir3kMQIh4wLYVH57OE62wVzyrG1OKKw',
                 aqiParam: 'yes',
                 apiResults: null,
                 formLoc: '',
@@ -234,7 +203,8 @@
                 formSky: null,
                 formWindDir: null,
                 formWindVel: null,
-                formTemp: null
+                formTemp: null,
+                mapHTML: null
             },
             methods: {
                 submitWeatherReport: function(){
@@ -263,12 +233,12 @@
                     }).then(response => {
                         console.log(response.data)
                         this.apiResults = response.data
-                        this.lat = 0
-                        this.lon = 0
+                        this.lat = null
+                        this.lon = null
                         this.stringParam = ''
                         this.displayWeather()
                     })
-                    
+                    // this.mapHTML = `<iframe width="600" height="450" style="border:0" loading="lazy" src="https://www.google.com/maps/embed/v1/place?key=` + this.googleAPIKey + `&q=` + this.lat + `,` + this.lon + `"></iframe>`
                 },
                 displayWeather: function(){
                     let locDateTime = new Date(this.apiResults.location.localtime)
@@ -289,6 +259,10 @@
                     if(this.locMin < 10){
                         this.locMin = '0' + this.locMin
                     }
+                    // this.mapHTML = `<iframe width="600" height="450" style="border:0" loading="lazy" src="https://www.google.com/maps/embed/v1/place?key=` + this.googleAPIKey + `&q=` + this.lat + `,` + this.lon + `"></iframe>`
+                },
+                created: function(){
+                    
                 }
             }
         })
