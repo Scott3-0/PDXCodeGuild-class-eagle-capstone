@@ -23,7 +23,7 @@ class WeatherReport(models.Model):
 
     location = models.CharField(max_length=50)
     date = models.DateField()
-    time = models.TimeField()
+    time = models.TimeField(default='00:00')
     sky_condition = models.CharField(max_length=3, choices=sky_condition_choices)
     wind_dir = models.CharField(max_length=3, choices=wind_dir_choices)
     wind_vel = models.FloatField(default=0)
